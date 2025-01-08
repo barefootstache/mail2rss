@@ -1,56 +1,45 @@
 # mail2rss
 
-## [English documentation here](README_EN.md).
+## [Mandarin documentation here](README_ZN.md).
 
 ---
 
-0 成本的邮件转 RSS 做法。
-使用 [cloudflare workers](https://workers.cloudflare.com/) 和 [testmail.app](https://testmail.app/)。
+zero cost method for converting newsletter to RSS.
+using [cloudflare workers](https://workers.cloudflare.com/) and [testmail.app](https://testmail.app/).
 
-cloudflare workers 每天免费请求量 100,000 次。  
-testmail.app 免费版每个月可以接收 100 封邮件，邮件可以保存一天。
+cloudflare workers allows for 100,000 free requests per day.  
+testmail.app's free tier enables you to receive 100 emails per month, and the email are saved for one day.
+If you are a student then you can apply for GitHub Student Developer Pack and for free get the testmail essential tier which allows you to recieve 10000 emails per month instead.
 
-也就是说，只要你的 RSS 阅读器请求频率小于一天，你都能毫无遗漏的接收每一封邮件。
+## Setting up testmail.app
 
-## 如何使用
+After you register, you will get your own namespace, through which different email addresses can be constructed.
 
-将 [mailrss.js](mail2rss.js) 的内容复制到 cloudflare workers 的代码中，填好前面几行的内容，部署即可。
+Suppose my namespace is `diyyy`，we can construct such an email address like `diyyy.{tag}@inbox.testmail.app`，`{tag}` can be replaced by anything.
 
-[查看如何在 Cloudflare Workers 中定义环境变量](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)
+for example，we can use `diyyy.quartz@inbox.testmail.app` to subscribe to _Quartz_'s newsletter，or use `diyyy.stefanjudis@inbox.testmail.app` to subscribe to _Stefan's web dev journey_.
+
+testmail provides a rich API for getting emails, including filtering tags, matching tag prefixes, limiting counts, and support for GraphQL queries.
+
+The official documentation is here: <https://testmail.app/docs/>
+
+After signing in，you can get your `namespace` and `api keys` at <https://testmail.app/console>, we will use both later.
+
+## Deploying to Cloudflare Workers
+
+When you already have your testmail credentials copy the content of [mailrss.js](mail2rss.js) into a new cloudflare worker and define the environment variables in settings. [Check how to define environment variables in cloudflare workers](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)
 
 ```js
-TESTMAIL_NAMESPACE = "xxxxx"; // testmail 的 namespace
-TESTMAIL_API_KEY = "xxxxxxxxxxxxxxx"; // testmail 的 api key
+TESTMAIL_NAMESPACE = "xxxxx"; // testmail's namespace
+TESTMAIL_API_KEY = "xxxxxxxxxxxxxxx"; // testmail's api key - it's recommended to use encryption for this field
 ```
 
-deploy 到 workers 之后，你可以用 `{namespace}.{tag}@inbox.testmail.app` 去订阅邮件，然后订阅 `https://xxx.xxx.workers.dev/{tag}` 就可以啦。
+After you deploy to workers，you can use `{namespace}.{tag}@inbox.testmail.app` to subscribe to a newsletter，and subscibe to `https://xxx.xxx.workers.dev/{tag}` in your rss reader.
 
-假如我的 namespace 是 diyyy，那我就可以用 `diyyy.quartz@inbox.testmail.app` 这个邮箱来订阅 Quartz，然后订阅 `https://xxx.xxx.workers.dev/quartz` 即可。
+Subscribing to `https://xxx.xxx.workers.dev/` will result in an empty feed as no tag is defined.
 
-![simple homepage](https://user-images.githubusercontent.com/13938334/223634941-cb2ca52e-641a-4e06-b0d3-c675e5880b2e.png)
+Suppose my namespace is diyyy，then I can use `diyyy.quartz@inbox.testmail.app` to subscribe _Quartz_'s newsletter，then subscibe to `https://xxx.xxx.workers.dev/quartz`.
 
-可以访问你部署的域名快速生成这两个地址。
+![simple homepage](https://user-images.githubusercontent.com/13938334/223634470-7dd2e8d6-ebdc-466a-9e6b-c9d3754beb33.png)
 
-## 注册 testmail.app
-
-testmail 能帮我们接收邮件，免费版每个月可以接收 100 封邮件，邮件内容可以保存一天。
-
-每个人注册后会获取专属的 namespace，通过 namespace 可以构造不同的邮件地址。
-
-假设我的 namespace 是 `diyyy`，我们可以构造这样的邮件地址 `diyyy.{tag}@inbox.testmail.app`，`{tag}` 可以任意填。
-
-比如，我们可以用 `diyyy.quartz@inbox.testmail.app` 订阅 Quartz 的 newsletter，用 `diyyy.stefanjudis@inbox.testmail.app` 来订阅 Stefan's web dev journey。
-
-testmail 提供了很丰富的 api，获取邮件包括过滤 tag，匹配 tag 前缀，限制获取数量，还支持 GraphQL 查询。
-
-官方文档在这儿：<https://testmail.app/docs/>
-
-注册登录后，在 <https://testmail.app/console> 可以看到自己的 namespace 和 api keys，这两个都是我们需要的。
-
-## 部署到 Cloudflare Workers
-
-首先你要有 cloudflare 的帐号。然后复制代码到 Cloudflare Workers 的代码编辑器中，修改相应信息即可。
-
-详细教程没有，可参考 [简易部署教程：Cloudflare-Workers](https://github.com/SeaHOH/GotoX/wiki/%E7%AE%80%E6%98%93%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B%EF%BC%9ACloudflare-Workers)。
-
-就只是复制代码过去而已。
+You can visit your deployment domain then quickly generate the two addresses.
