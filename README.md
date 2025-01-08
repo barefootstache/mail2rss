@@ -58,4 +58,5 @@ These tools can help with debugging:
 
 ## Contributors
 
+- [barefootstache](https://github.com/barefootstache)
 - [Artin](https://github.com/bytemain): original author
