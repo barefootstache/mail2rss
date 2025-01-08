@@ -14,9 +14,9 @@ If you are a student then you can apply for GitHub Student Developer Pack and fo
 ## Quick Start
 
 1. Sign up for Cloudflare and testmail.app and activate them both.
-2. <#setting-up-testmailapp>
-3. <#deploying-to-cloudflare-workers>
-4. <#setting-up-rss-reader>
+2. [Setting up testmail.app](#setting-up-testmailapp)
+3. [Deploying to Cloudflare Workers](#deploying-to-cloudflare-workers)
+4. [Setting up RSS reader](#setting-up-rss-reader)
 
 ## Setting up testmail.app
 
