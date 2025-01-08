@@ -74,7 +74,7 @@ These tools can help with debugging:
 - <https://www.rssboard.org/rss-validator/check.cgi>: to check the validity of the generated RSS feed
 - <https://html.onlineviewer.net/>: to view the HTML of the newsletter
 
-## [Mandarin documentation here](README_ZN.md)
+## [Mandarin documentation here](README_ZH.md)
 
 ## Contributors
 

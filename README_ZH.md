@@ -1,6 +1,6 @@
 # mail2rss
 
-## [English documentation here](README.md).
+## [English documentation here](README.md)
 
 ---
 
